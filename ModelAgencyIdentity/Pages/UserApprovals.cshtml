@@ -1,0 +1,36 @@
+﻿@page
+@model UserApprovalsModel
+@{
+    ViewData["Title"] = "Approvals";
+}
+
+<h2>Approve pending users</h2>
+<table>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>@user.Email </td>
+            &nbsp;
+            <td>
+                <form asp-page-handler="Approve" method="post">
+                    <input type="hidden" name="email" value="@user.Email" />
+                    <button>Approve</button>
+                    &nbsp;~&nbsp;
+                </form>
+            </td>
+            <td>
+                <form asp-page-handler="Reject" method="post">
+                    <input type="hidden" name="email" value="@user.Email" />
+                    <button>Reject</button>
+                    &nbsp;~&nbsp;
+                </form>
+            </td>
+            <td>
+                <form asp-page="/Details" asp-route-id="@user.Email">
+                    <button>Details</button>
+                    &nbsp;~&nbsp;
+                </form>
+            </td>
+        </tr>
+    }
+</table>
