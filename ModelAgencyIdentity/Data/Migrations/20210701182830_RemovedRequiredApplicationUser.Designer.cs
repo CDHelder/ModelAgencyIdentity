@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelAgencyIdentity.Data;
 
-namespace ModelAgencyIdentity.Data.Migrations
+namespace ModelAgencyIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210630124501_AddedAccountState")]
-    partial class AddedAccountState
+    [Migration("20210701182830_RemovedRequiredApplicationUser")]
+    partial class RemovedRequiredApplicationUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,10 +171,6 @@ namespace ModelAgencyIdentity.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -226,8 +222,64 @@ namespace ModelAgencyIdentity.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
+            modelBuilder.Entity("ModelAgencyIdentity.Data.Entities.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AddressNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("EventTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Postalcode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("EventTypeId");
+
+                    b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("ModelAgencyIdentity.Data.Entities.EventType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventTypes");
                 });
 
             modelBuilder.Entity("ModelAgencyIdentity.Data.Entities.CustomerUser", b =>
@@ -252,7 +304,51 @@ namespace ModelAgencyIdentity.Data.Migrations
                     b.Property<string>("StreetAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("CustomerUser");
+                    b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "76cb4dce-91ca-45c1-b7d3-3963d5a7a49c",
+                            AccessFailedCount = 0,
+                            AccountState = 2,
+                            ConcurrencyStamp = "ad33b842-d89e-413c-9de6-22b325c25cc2",
+                            Email = "GekkeHenk@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumber = "06123456789",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "caccdb6f-a822-4c2c-8618-2a6bd9f28ff1",
+                            TwoFactorEnabled = false,
+                            UserName = "Henk",
+                            BTW = "123456789JWZ",
+                            Country = "Nederland",
+                            KvK = "987654321JWZ",
+                            Name = "Henk",
+                            PostalCode = "4201 GG",
+                            StreetAddress = "Sesamstraat 12"
+                        },
+                        new
+                        {
+                            Id = "cb58b0bf-0a85-4c5c-b4ba-c7e2de220d70",
+                            AccessFailedCount = 0,
+                            AccountState = 2,
+                            ConcurrencyStamp = "ed5ba415-7b13-4f89-a0ed-9c43a25518ce",
+                            Email = "Jaapie@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumber = "06987654312",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "df74b662-af25-403b-9905-75ab9fa02ad1",
+                            TwoFactorEnabled = false,
+                            UserName = "Jaap",
+                            BTW = "67891234JWZ",
+                            Country = "Nederland",
+                            KvK = "12341234JWZ",
+                            Name = "Jaap",
+                            PostalCode = "6969 TR",
+                            StreetAddress = "Zwaluwstraat 12"
+                        });
                 });
 
             modelBuilder.Entity("ModelAgencyIdentity.Data.Entities.ModelUser", b =>
@@ -260,25 +356,68 @@ namespace ModelAgencyIdentity.Data.Migrations
                     b.HasBaseType("ModelAgencyIdentity.Data.Entities.ApplicationUser");
 
                     b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ModelUser_Country");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("EventId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ModelUser_Name");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ModelUser_PostalCode");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ModelUser_StreetAddress");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("ModelUser");
+                    b.HasIndex("EventId");
+
+                    b.ToTable("Models");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f5ef3d2d-9bed-4bed-ba3e-b7522fe75432",
+                            AccessFailedCount = 0,
+                            AccountState = 0,
+                            ConcurrencyStamp = "87c10795-813d-4422-9c05-be5e27caf341",
+                            Email = "Therese@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumber = "0645671234",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e1bafc4d-12bc-4e97-86ed-15f588ea2d78",
+                            TwoFactorEnabled = false,
+                            UserName = "Therese",
+                            Country = "Nederland",
+                            DOB = new DateTime(2021, 7, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Name = "Therese",
+                            PostalCode = "8844 JG",
+                            StreetAddress = "Ruwinastraat 69"
+                        },
+                        new
+                        {
+                            Id = "62963f36-b803-41e5-8349-d97529e899bd",
+                            AccessFailedCount = 0,
+                            AccountState = 0,
+                            ConcurrencyStamp = "c38f8c59-1078-43a3-a7bc-51fa803db16e",
+                            Email = "Peter@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PhoneNumber = "0678901234",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "84eeb76a-203f-4446-a718-67b2142fa953",
+                            TwoFactorEnabled = false,
+                            UserName = "Peter",
+                            Country = "Nederland",
+                            DOB = new DateTime(2021, 7, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Name = "Peter",
+                            PostalCode = "3456 JG",
+                            StreetAddress = "Gekkestraat 420"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -330,6 +469,48 @@ namespace ModelAgencyIdentity.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ModelAgencyIdentity.Data.Entities.Event", b =>
+                {
+                    b.HasOne("ModelAgencyIdentity.Data.Entities.CustomerUser", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("ModelAgencyIdentity.Data.Entities.EventType", "EventType")
+                        .WithMany()
+                        .HasForeignKey("EventTypeId");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("EventType");
+                });
+
+            modelBuilder.Entity("ModelAgencyIdentity.Data.Entities.CustomerUser", b =>
+                {
+                    b.HasOne("ModelAgencyIdentity.Data.Entities.ApplicationUser", null)
+                        .WithOne()
+                        .HasForeignKey("ModelAgencyIdentity.Data.Entities.CustomerUser", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ModelAgencyIdentity.Data.Entities.ModelUser", b =>
+                {
+                    b.HasOne("ModelAgencyIdentity.Data.Entities.Event", null)
+                        .WithMany("Models")
+                        .HasForeignKey("EventId");
+
+                    b.HasOne("ModelAgencyIdentity.Data.Entities.ApplicationUser", null)
+                        .WithOne()
+                        .HasForeignKey("ModelAgencyIdentity.Data.Entities.ModelUser", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ModelAgencyIdentity.Data.Entities.Event", b =>
+                {
+                    b.Navigation("Models");
                 });
 #pragma warning restore 612, 618
         }

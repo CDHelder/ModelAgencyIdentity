@@ -26,5 +26,29 @@ namespace ModelAgencyIdentity.Pages
         {
             Users = dbContext.Users.Where(user => user.AccountState == AccountState.Pending).ToList();
         }
+
+        public IActionResult OnPostApprove(string email)
+        {
+            var user = dbContext.Users.First(user => user.Email == email);
+            if (user != null)
+            {
+                user.AccountState = AccountState.Approved;
+                dbContext.SaveChanges();
+            }
+
+            return LocalRedirect("/UserApprovals");
+        }
+
+        public IActionResult OnPostReject(string email)
+        {
+            var user = dbContext.Users.First(user => user.Email == email);
+            if (user != null)
+            {
+                user.AccountState = AccountState.Rejected;
+                dbContext.SaveChanges();
+            }
+
+            return LocalRedirect("/UserApprovals");
+        }
     }
 }

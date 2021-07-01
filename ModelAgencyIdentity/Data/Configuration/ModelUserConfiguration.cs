@@ -12,6 +12,8 @@ namespace ModelAgencyIdentity.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<ModelUser> builder)
         {
+            builder.ToTable("Models");
+
             builder.HasData(
                 new ModelUser
                 {

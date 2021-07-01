@@ -51,13 +51,13 @@
                 <td>
                     @if (User.IsInRole("Admin"))
                     {
-                        <a asp-page="./Edit" asp-route-id="@customer.Id">Edit</a>
+                        <a asp-page="./Edit" asp-route-Email="@customer.Email">Edit</a>
                     }
 
-                    <a asp-page="./Details" asp-route-id="@customer.Id">Details</a> |
+                    <a asp-page="./Details" asp-route-Email="@customer.Email">Details</a> |
                     @if (User.IsInRole("Admin"))
                     {
-                        <a asp-page="./Delete" asp-route-id="@customer.Id">Delete</a>
+                        <a asp-page="./Delete" asp-route-Email="@customer.Email">Delete</a>
                     }
                 </td>
             </tr>

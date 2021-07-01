@@ -9,11 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using ModelAgencyIdentity.Data;
 using ModelAgencyIdentity.Data.Entities;
 
-namespace ModelAgencyIdentity.Pages.Customers
+namespace ModelAgencyIdentity.Pages.Models
 {
     [Authorize(Policy = "ApprovedUsers")]
     public class IndexModel : PageModel
     {
+        
         private readonly ApplicationDbContext _context;
 
         public IndexModel(ApplicationDbContext context)
@@ -21,11 +22,11 @@ namespace ModelAgencyIdentity.Pages.Customers
             _context = context;
         }
 
-        public IList<CustomerUser> CustomerUsers { get;set; }
+        public IList<ModelUser> ModelUsers { get;set; }
 
         public void OnGetAsync()
         {
-            CustomerUsers =  _context.Customers.Where(customer => customer.AccountState == AccountState.Approved).ToList();
+            ModelUsers = _context.Models.Where(customer => customer.AccountState == AccountState.Approved).ToList();
         }
     }
 }

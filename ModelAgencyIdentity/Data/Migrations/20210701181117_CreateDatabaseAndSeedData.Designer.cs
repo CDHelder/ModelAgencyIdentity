@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ModelAgencyIdentity.Data;
 
 namespace ModelAgencyIdentity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210701181117_CreateDatabaseAndSeedData")]
+    partial class CreateDatabaseAndSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,6 +172,7 @@ namespace ModelAgencyIdentity.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -194,6 +197,7 @@ namespace ModelAgencyIdentity.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
@@ -288,12 +292,14 @@ namespace ModelAgencyIdentity.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("KvK")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
@@ -307,16 +313,16 @@ namespace ModelAgencyIdentity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "76cb4dce-91ca-45c1-b7d3-3963d5a7a49c",
+                            Id = "86c364a5-2698-42a3-b157-0a0af5bb7c0d",
                             AccessFailedCount = 0,
                             AccountState = 2,
-                            ConcurrencyStamp = "ad33b842-d89e-413c-9de6-22b325c25cc2",
+                            ConcurrencyStamp = "6f33147d-7594-4cfc-938d-3867c90a5f97",
                             Email = "GekkeHenk@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "06123456789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "caccdb6f-a822-4c2c-8618-2a6bd9f28ff1",
+                            SecurityStamp = "192a7b27-7d16-4be3-aaa9-febf07ac472c",
                             TwoFactorEnabled = false,
                             UserName = "Henk",
                             BTW = "123456789JWZ",
@@ -328,16 +334,16 @@ namespace ModelAgencyIdentity.Migrations
                         },
                         new
                         {
-                            Id = "cb58b0bf-0a85-4c5c-b4ba-c7e2de220d70",
+                            Id = "187a9a15-f95a-460e-bc55-a6cc541fa948",
                             AccessFailedCount = 0,
                             AccountState = 2,
-                            ConcurrencyStamp = "ed5ba415-7b13-4f89-a0ed-9c43a25518ce",
+                            ConcurrencyStamp = "f208e4ed-d1de-47ca-a3c3-bab0e20412bb",
                             Email = "Jaapie@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "06987654312",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "df74b662-af25-403b-9905-75ab9fa02ad1",
+                            SecurityStamp = "51922178-f2b0-451b-b54e-7d910d24c0ca",
                             TwoFactorEnabled = false,
                             UserName = "Jaap",
                             BTW = "67891234JWZ",
@@ -354,6 +360,7 @@ namespace ModelAgencyIdentity.Migrations
                     b.HasBaseType("ModelAgencyIdentity.Data.Entities.ApplicationUser");
 
                     b.Property<string>("Country")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DOB")
@@ -363,6 +370,7 @@ namespace ModelAgencyIdentity.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostalCode")
@@ -378,16 +386,16 @@ namespace ModelAgencyIdentity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f5ef3d2d-9bed-4bed-ba3e-b7522fe75432",
+                            Id = "0ec89ff6-7fed-42d4-af8c-995ef84f5231",
                             AccessFailedCount = 0,
                             AccountState = 0,
-                            ConcurrencyStamp = "87c10795-813d-4422-9c05-be5e27caf341",
+                            ConcurrencyStamp = "41f7c373-5ee6-41fa-b94f-fb7239e40b3b",
                             Email = "Therese@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "0645671234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e1bafc4d-12bc-4e97-86ed-15f588ea2d78",
+                            SecurityStamp = "b33c042d-b2b4-4856-8264-122fa1f9885a",
                             TwoFactorEnabled = false,
                             UserName = "Therese",
                             Country = "Nederland",
@@ -398,16 +406,16 @@ namespace ModelAgencyIdentity.Migrations
                         },
                         new
                         {
-                            Id = "62963f36-b803-41e5-8349-d97529e899bd",
+                            Id = "5e6b7359-ab6c-49da-8d11-7302520c073a",
                             AccessFailedCount = 0,
                             AccountState = 0,
-                            ConcurrencyStamp = "c38f8c59-1078-43a3-a7bc-51fa803db16e",
+                            ConcurrencyStamp = "2d465e2f-1d15-42c0-bef1-b83315a4c55d",
                             Email = "Peter@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             PhoneNumber = "0678901234",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "84eeb76a-203f-4446-a718-67b2142fa953",
+                            SecurityStamp = "6e0c5bad-2ffa-490f-a763-48e1eb9c780d",
                             TwoFactorEnabled = false,
                             UserName = "Peter",
                             Country = "Nederland",
